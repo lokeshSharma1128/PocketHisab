@@ -3,8 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_constants.dart';
-import '../../auth/auth_service.dart';
 import '../../goals/screens/goals_screen.dart';
 import '../../insights/screens/insights_screen.dart';
 import '../../settings/screens/settings_screen.dart';
