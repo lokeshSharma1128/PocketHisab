@@ -34,7 +34,7 @@ PocketHisab is a comprehensive personal finance management application built wit
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/PocketHisab.git
+   git clone https://github.com/lokeshSharma1128/PocketHisab.git
    cd PocketHisab
    ```
 
