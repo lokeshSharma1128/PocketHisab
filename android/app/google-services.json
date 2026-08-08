@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1017683433819",
+    "project_id": "pocket-hisab-21957",
+    "storage_bucket": "pocket-hisab-21957.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1017683433819:android:911340acae385f1770a27e",
+        "android_client_info": {
+          "package_name": "com.example.pocketHisab"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXRzPg5mUb75YDCcJWBQFdxmqiFg3ruiU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

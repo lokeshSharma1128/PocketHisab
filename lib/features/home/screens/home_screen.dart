@@ -1,27 +1,42 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:fl_chart/fl_chart.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../../core/utils/notification_service.dart';
+import '../../../http.dart';
 import '../../../shared/widgets/section_title.dart';
 import '../../transactions/provider/transaction_provider.dart';
 import '../provider/app_provider.dart';
 import '../../../shared/widgets/empty_state.dart';
-import '../../../core/constants/app_constants.dart';
-import '../../../core/utils/formatters.dart';
 import '../widgets/balance_card.dart';
 import '../widgets/weekly_chart.dart';
 import '../widgets/category_breakdown.dart';
 import '../widgets/recent_transactions_list.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // Request notification permissions on app start
+    // _initNotifications();
+  }
+
+  // Future<void> _initNotifications() async {
+  //   await NotificationService.requestPermissions();
+  // }
 
   @override
   Widget build(BuildContext context) {
     final app = context.watch<AppProvider>();
     final txn = context.watch<TransactionProvider>();
 
-    // Adaptive surface colors from theme
     final bg = AppColors.bg(context);
     final surface = AppColors.surface(context);
     final txtPrimary = AppColors.textPrimary(context);
@@ -34,12 +49,10 @@ class HomeScreen extends StatelessWidget {
           color: AppColors.accent,
           backgroundColor: surface,
           onRefresh: () async {
-            // Hive is sync; just trigger rebuild
             await Future.delayed(const Duration(milliseconds: 500));
           },
           child: CustomScrollView(
             slivers: [
-              // ── Header ──
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -96,7 +109,6 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
 
-              // ── Balance Card ──
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -109,7 +121,6 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
 
-              // ── Weekly Chart ──
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -123,7 +134,6 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
 
-              // ── Category Breakdown ──
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -137,7 +147,6 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
 
-              // ── Recent Transactions ──
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -166,6 +175,46 @@ class HomeScreen extends StatelessWidget {
                                   'Add your first transaction to get started',
                             )
                           : RecentTransactionsList(transactions: txn.recent),
+                    ],
+                  ),
+                ),
+              ),
+
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SectionTitle('Quick Actions'),
+                      ElevatedButton.icon(
+                        // onPressed: () {
+                        //   // NotificationService.showNotification(
+                        //   //   id: 0,
+                        //   //   title: 'Penny App Reminder',
+                        //   //   body: 'Tap to see your transactions!',
+                        //   //   payload: jsonEncode({'screen': 'goals'}),
+                        //   // );
+                        // },
+                        onPressed: () async {
+                          await notifyUser(
+                            userId: 1,
+                            title: "Budget Alert",
+                            body: "You crossed 90% of your monthly budget",
+                          );
+                        },
+                        icon: const Icon(Icons.notifications_active_rounded),
+                        label: const Text('Test Notification (Go to Transactions)'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: surface,
+                          foregroundColor: AppColors.accent,
+                          minimumSize: const Size(double.infinity, 50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          elevation: 0,
+                        ),
+                      ),
                     ],
                   ),
                 ),

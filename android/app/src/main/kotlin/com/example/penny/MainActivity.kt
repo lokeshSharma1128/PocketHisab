@@ -1,4 +1,4 @@
-package com.example.penny
+package com.example.pocketHisab
 
 import io.flutter.embedding.android.FlutterActivity
 

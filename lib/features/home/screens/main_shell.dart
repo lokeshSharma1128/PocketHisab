@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_colors.dart';
+import '../../../core/utils/notification_service.dart';
 import '../../goals/screens/goals_screen.dart';
 import '../../insights/screens/insights_screen.dart';
 import '../../settings/screens/settings_screen.dart';
@@ -37,10 +39,56 @@ class _MainShellState extends State<MainShell> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // _checkBiometric();
-    });
+
+    initializeNotifications();
   }
+
+  Future<void> initializeNotifications() async {
+    const int userId = 1;
+
+    await NotificationService.init(userId);
+  }
+  // void initState() {
+  //   super.initState();
+  //   _initNotifications();
+  // }
+
+  // Future<void> _initNotifications() async {
+  //   // Request permissions on startup
+  //   await NotificationService.requestPermissions();
+  //
+  //   // Set up notification click handler
+  //   NotificationService.onNotificationClick = (String? payload) {
+  //     if (payload != null && payload.isNotEmpty) {
+  //       try {
+  //         final data = jsonDecode(payload);
+  //         final screen = data['screen'];
+  //         final appProvider = Provider.of<AppProvider>(context, listen: false);
+  //
+  //         switch (screen) {
+  //           case 'home':
+  //             appProvider.setIndex(0);
+  //             break;
+  //           case 'transactions':
+  //             appProvider.setIndex(1);
+  //             break;
+  //           case 'goals':
+  //             appProvider.setIndex(2);
+  //             break;
+  //           case 'insights':
+  //             appProvider.setIndex(3);
+  //             break;
+  //           case 'profile':
+  //           case 'settings':
+  //             appProvider.setIndex(4);
+  //             break;
+  //         }
+  //       } catch (e) {
+  //         debugPrint('Error handling notification payload: $e');
+  //       }
+  //     }
+  //   };
+  // }
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,4 @@
-# PocketHisab
+# PocketHisab [![Flutter CI/CD](https://github.com/lokeshSharma1128/PocketHisab/actions/workflows/flutter_ci.yml/badge.svg)](https://github.com/lokeshSharma1128/PocketHisab/actions)
 
 PocketHisab is a comprehensive personal finance management application built with Flutter. It helps users track their income, expenses, set financial goals, and visualize their spending patterns with ease and security.
 
